@@ -9,9 +9,9 @@ BINDIR := bin
 LIBDIR := lib
 
 # The Python include and library directories
-PYTHON_VERSION = 3.10
+PYTHON_VERSION = 3.9
 PYINCLUDE = -I/usr/include/python$(PYTHON_VERSION)
-PYLIBS = -lpython3.10
+PYLIBS = -lpython3.9
 
 # The name of the extension module
 MODULE = WallControllerUtils
