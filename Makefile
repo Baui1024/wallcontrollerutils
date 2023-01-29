@@ -11,7 +11,7 @@ LIBDIR := lib
 # The Python include and library directories
 PYTHON_VERSION = "3.9"
 PYINC = "-I/usr/include/python$(PYTHON_VERSION)"
-PYLIBS = -lpython$(PYTHON_VERSION)
+LIBS = -lpython$(PYTHON_VERSION)
 
 # The name of the extension module
 MODULE = WallControllerUtils
@@ -38,7 +38,7 @@ LDFLAGS = -shared
 # Build the extension module
 $(TARGET): $(TARGET)
 	@mkdir -p $(dir $@)
-	$(CC)	$(LDFLAGS)	$(PYINC) 	$(SOURCES)	-o $@ $(CFLAGS) 	$(PYLIBS)
+	$(CC)	$(LDFLAGS)	$(PYINC) 	$(SOURCES)	-o $@ $(CFLAGS) 	$(LIBS)
 
 # Clean up the build files
 clean:
