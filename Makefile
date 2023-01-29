@@ -29,13 +29,8 @@ TARGET := $(LIBDIR)/python$(PYTHON_VERSION)/wallcontrollerutils.so
 LEGACY := $(LIBDIR)/wallcontrollerutils.so
 
 
-##Makefile rules
+## Makefile rules
 all: info validate $(TARGET) $(LEGACY)
-
-
-# Compiler and linker flags
-#CFLAGS = -Wall -Werror -fPIC
-#LDFLAGS = -shared
 
 $(TARGET): $(OBJECTS)
 	@echo " Compiling $@"
@@ -47,11 +42,13 @@ $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(dir $@)
 	@echo " $(CC) $(CFLAGS) $(INC) -c -o $@ $<"; $(CC) $(CFLAGS) $(INC) -c -o $@ $<
 
-
-# Build the extension module
-#$(BUILDDIR): $(TARGET)
-#	@mkdir -p $(dir $@)
-#	$(CC)	$(LDFLAGS)	$(PYINC) 	$(SOURCES)	-o $@ $(CFLAGS) 	$(LIB)
+	
+$(LEGACY): $(TARGET)
+ifeq ($(PYTHON_VERSION),2.7)
+	@echo " Copying to legacy location for backward compatibility"
+	@mkdir -p $(dir $@)
+	cp $(TARGET) $(LEGACY)
+endif
 
 validate:
 ifeq ($(PYTHON_VERSION),)
@@ -73,5 +70,4 @@ wipe:
 	$(RM) -r $(BUILDDIR)
 
 .PHONY: clean
-
 
