@@ -71,7 +71,12 @@ static PyObject *convertImage(PyObject *self, PyObject *args) {
         }
     }
 
-    PyObject *result = Py_BuildValue("y#", rgb565_data, size);
+    //PyObject *result = Py_BuildValue("y#", rgb565_data, size);
+    PyObject *result = PyList_New(size);
+    for (int i = 0; i < size; i++) {
+       PyList_SetItem(result, i, PyLong_FromLong(rgb565_data[i]));
+    }
+
     free(rgb565_data);
     return result; 
 }
