@@ -89,7 +89,7 @@ static PyObject *convertImage(PyObject *self, PyObject *args) {
 
 static PyObject* version(PyObject* self)
 {
-    return Py_BuildValue("s", "Version 0.03");
+    return Py_BuildValue("s", "Version 0.04");
 };
 
 static PyMethodDef Examples[] = {
