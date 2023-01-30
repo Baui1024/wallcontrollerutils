@@ -7,8 +7,7 @@ static PyObject *convertImage(PyObject *self, PyObject *args) {
     int width;
     int height;
     int rotation;
-    int mode;
-    if (!PyArg_ParseTuple(args, "Oiiii", &pixel_data_obj, &width, &height, &rotation,&mode)) {
+    if (!PyArg_ParseTuple(args, "Oiii", &pixel_data_obj, &width, &height, &rotation)) {
         return NULL;
     }
 
@@ -71,25 +70,16 @@ static PyObject *convertImage(PyObject *self, PyObject *args) {
             rgb565_data[index + 1] = rgb565 & 0xff;
         }
     }
-	
-    if (mode == 1){
-	    PyObject *result = Py_BuildValue("y#", rgb565_data, size);
-	    free(rgb565_data);
-	    return result; 
-    }else if (mode == 2){
-	    PyObject *result = PyList_New(size);
-	    for (int i = 0; i < size; i++) {
-	       PyList_SetItem(result, i, PyLong_FromLong(rgb565_data[i]));
-	    }
-	    free(rgb565_data);
-	    return result; 
-     }
-    
+
+    PyObject *result = Py_BuildValue("y#", rgb565_data, size);
+
+    free(rgb565_data);
+    return result; 
 }
 
 static PyObject* version(PyObject* self)
 {
-    return Py_BuildValue("s", "Version 0.04");
+    return Py_BuildValue("s", "Version 0.03");
 };
 
 static PyMethodDef Examples[] = {
